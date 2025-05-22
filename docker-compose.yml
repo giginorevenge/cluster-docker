@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  galera1:
+    image: mariadb:10.6
+    container_name: galera1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - ./my_custom_galera1.cnf:/etc/mysql/conf.d/my_custom.cnf
+      - galera1_data:/var/lib/mysql
+    networks:
+      galera-net:
+        aliases:
+          - galera1
+
+  galera2:
+    image: mariadb:10.6
+    container_name: galera2
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - ./my_custom_galera2.cnf:/etc/mysql/conf.d/my_custom.cnf
+      - galera2_data:/var/lib/mysql
+    networks:
+      galera-net:
+        aliases:
+          - galera2
+
+  galera3:
+    image: mariadb:10.6
+    container_name: galera3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - ./my_custom_galera3.cnf:/etc/mysql/conf.d/my_custom.cnf
+      - galera3_data:/var/lib/mysql
+    networks:
+      galera-net:
+        aliases:
+          - galera3
+
+networks:
+  galera-net:
+    driver: bridge
+
+volumes:
+  galera1_data:
+  galera2_data:
+  galera3_data:
